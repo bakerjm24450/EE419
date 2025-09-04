@@ -1,0 +1,100 @@
+menu "EE 419 Configuration"
+
+    config LED_RED_PIN
+        int "Red LED gpio number"
+        default 9
+        help
+            GPIO number for the red LED.
+        
+    config LED_GREEN_PIN
+        int "Green LED gpio number"
+        default 6
+        help
+            GPIO number for the green LED.
+            
+    config LED_BLUE_PIN
+        int "Blue LED gpio number"
+        default 5
+        help
+            GPIO number for the blue LED.
+
+    config WIFI_SSID
+        string "WiFi SSID"
+        default "Replace with given SSID"
+        help
+            SSID (network name) to connect to
+
+    config WIFI_PASSWORD
+        string "WiFi Password"
+        default "Replace with given password"
+        help
+            WiFi password (WPA2)            
+
+    config SNTP_SERVER
+        string "SNTP server"
+        default "pool.ntp.org"
+        help
+            SNTP (network time) server
+
+    config SNTP_TIME_ZONE
+        string "Time zone"
+        default "EST5EDT,M3.2.0,M11.1.0"
+        help
+            Time zone setting using 
+
+    config PN532_SPI_MISO
+        int "PN532 SPI MISO Pin"
+        default 37
+        help
+            GPIO pin used for SPI MISO for PN532
+            
+    config PN532_SPI_MOSI
+        int "PN532 SPI MOSI Pin"
+        default 35
+        help
+            GPIO pin used for SPI MOSI for PN532
+            
+    config PN532_SPI_SCK
+        int "PN532 SPI SCK Pin"
+        default 36
+        help
+            GPIO pin used for SPI SCK for PN532
+            
+    config PN532_SPI_CS
+        int "PN532 SPI CS Pin"
+        default 40
+        help
+            GPIO pin used for SPI CS for PN532
+            
+    config PN532_SPI_IRQ
+        int "PN532 SPI IRQ Pin"
+        default 41
+        help
+            GPIO pin used for SPI IRQ for PN532
+
+    config PN532_SPI_CLOCK_RATE
+        int "PN532 SPI Clock Rate"
+        default 1000000
+        help
+            SPI clock rate in Hz for PN532
+
+    config PN532_SPI_HOST_NFC
+        int "PN532 SPI HOST Number"
+        range 0 2
+        default 2
+        help
+            Set the SPI host used to communicate with PN532
+
+    config MQTT_BROKER
+        string "AWS endpoint"
+        default "Replace with AWS endpoint used as MQTT broker"
+        help
+            Address of AWS endpoint used as MQTT broker
+
+    config MQTT_PORT
+        int "Port used for MQTT communication"
+        default 443
+        help
+            Port on broker used for MQTT communication
+                        
+endmenu

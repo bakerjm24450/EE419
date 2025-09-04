@@ -39,3 +39,14 @@
 
 # debug information files
 *.dwo
+
+# OSX-specific
+.DS_Store
+
+# ESP32-specific
+*/build/*
+sdkconfig
+sdkconfig.old
+
+# VS Code user-specific settings
+settings.json

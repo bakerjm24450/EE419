@@ -1,0 +1,45 @@
+menu "EE 419 Configuration"
+
+    config LED_RED_PIN
+        int "Red LED gpio number"
+        default 9
+        help
+            GPIO number for the red LED.
+        
+    config LED_GREEN_PIN
+        int "Green LED gpio number"
+        default 6
+        help
+            GPIO number for the green LED.
+            
+    config LED_BLUE_PIN
+        int "Blue LED gpio number"
+        default 5
+        help
+            GPIO number for the blue LED.
+
+    config WIFI_SSID
+        string "WiFi SSID"
+        default "Replace with given SSID"
+        help
+            SSID (network name) to connect to
+
+    config WIFI_PASSWORD
+        string "WiFi Password"
+        default "Replace with given password"
+        help
+            WiFi password (WPA2)            
+
+    config SNTP_SERVER
+        string "SNTP server"
+        default "pool.ntp.org"
+        help
+            SNTP (network time) server
+
+    config SNTP_TIME_ZONE
+        string "Time zone"
+        default "EST5EDT,M3.2.0,M11.1.0"
+        help
+            Time zone setting using 
+
+endmenu
