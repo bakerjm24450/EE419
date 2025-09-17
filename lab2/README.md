@@ -3,8 +3,8 @@
 
 # EE 419 Lab 2
 
-Building on Lab 1, this lab adds a PN532 NFC scanner, connected via the SPI interface. It also
-runs a simple webserver to display some status information about the system.
+Building on Lab 1, this lab adds a PN532 NFC scanner, connected via the SPI or I2C 
+interface.
 
 ## Configure the Project
 
@@ -15,7 +15,8 @@ Next, open the project configuration menu (`idf.py menuconfig`).
 In the `EE 419 Configuration` menu:
 
 * Confirm that the GPIO numbers used for the red, green, and blue LEDs match your system
-* Confirm that the pins for the SPI interface match your system
+* Select either the SPI or I2C interface for the PN532
+* Confirm that the pins for the SPI or I2C interface match your system
 * Set the WiFi SSID and password
 
 ### Build and Flash

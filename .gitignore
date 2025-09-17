@@ -45,8 +45,10 @@
 
 # ESP32-specific
 */build/*
+*/managed_components/*
 sdkconfig
 sdkconfig.old
+dependencies.lock
 
 # VS Code user-specific settings
 settings.json
