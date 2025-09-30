@@ -1,69 +1,61 @@
 /* EE 419 Lab 4
- * Communicates with local MQTT broker
-*/
+ * MQTT communication with local broker
+ */
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 #include <esp_log.h>
 #include <esp_err.h>
+#include <esp_check.h>
+#include <esp_event.h>
 #include <time.h>
+#include <nvs_flash.h>
+
 
 #include "RGBLED.h"
 #include "WiFi.h"
+#include "NFCScanner.h"
+#include "MQTTClient.h"
 
 static const char *TAG = "main";
 
+// System-level initialization
+esp_err_t init()
+{
+    // initialize nvs (wifi config is stored in nvs)
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
+    {
+        // erase the old and try again
+        ESP_RETURN_ON_ERROR(nvs_flash_erase(), TAG, "Cannot erase NVS");
+        ret = nvs_flash_init();
+    }
+    ESP_RETURN_ON_ERROR(ret, TAG, "Cannot initialize NVS");
+
+    // create default event loop
+    ESP_RETURN_ON_ERROR(esp_event_loop_create_default(),
+                        TAG, "Cannot create default event loop");
+
+    return ESP_OK;                        
+}
+
 void app_main(void)
 {
-    esp_log_level_set(TAG, ESP_LOG_INFO);
+    esp_log_level_set(TAG, ESP_LOG_DEBUG);
+
+    // system-level initi
+    ESP_ERROR_CHECK(init());
 
     // configure the rgb led
-    led_config();
+    ESP_ERROR_CHECK(led_config());
+
+    // configure the NFC scanner
+    ESP_ERROR_CHECK(nfcScanner_config());
 
     // connect to WiFi
-    wifi_init();
+    ESP_ERROR_CHECK(wifi_init());
 
-    for (;;)
-    {
+    // FIXME -- connect to mqtt broker
 
-        // print the current time
-        time_t now = 0;
-        struct tm timeinfo = {0};
-        time(&now);
-        localtime_r(&now, &timeinfo);
-        ESP_LOGI(TAG, "\nTime: %s", asctime(&timeinfo));
-
-        // cycle thru the colors
-        led_on(WHITE);
-        ESP_LOGI(TAG, "White");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(RED);
-        ESP_LOGI(TAG, "Red");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(GREEN);
-        ESP_LOGI(TAG, "Green");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(BLUE);
-        ESP_LOGI(TAG, "Blue");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(MAGENTA);
-        ESP_LOGI(TAG, "Magenta");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(CYAN);
-        ESP_LOGI(TAG, "Cyan");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_on(YELLOW);
-        ESP_LOGI(TAG, "Yellow");
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        led_off();
-        ESP_LOGI(TAG, "Off");
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
+    // FIXME -- infinite loop to scan for NFC tags, publish info to broker
 }

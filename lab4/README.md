@@ -12,9 +12,11 @@ Open the project configuration menu (`idf.py menuconfig`).
 In the `EE 419 Configuration` menu:
 
 * Confirm the GPIO numbers used for the red, green, and blue LEDs
-* Confirm the GPIO numbers for the SPI communication with the PN532
 * Set the WiFi SSID and password
-* Set the mDNS name or IP address of the local MQTT broker
+* Set the hostname of your Pi as the MQTT Broker
+* Confirm (or select) the PN532 interface type (I2C or SPI)
+* Confirm the GPIO numbers for the I2C or SPI communication with the PN532
+    * If you are using SPI, select the "Use IRQ pin instead of polling" option under PN532 Options
 
 ### Build and Flash
 
