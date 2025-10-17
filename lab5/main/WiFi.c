@@ -67,20 +67,8 @@ esp_err_t wifi_init()
     wifi_event_group = xEventGroupCreate();
     ESP_RETURN_ON_FALSE(wifi_event_group != NULL, ESP_ERR_NO_MEM, TAG, "Cannot create WiFi event group");
 
-    // initialize nvs (wifi config is stored in nvs)
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        // erase the old and try again
-        ESP_RETURN_ON_ERROR(nvs_flash_erase(), TAG, "Cannot erase NVS");
-        ret = nvs_flash_init();
-    }
-    ESP_RETURN_ON_ERROR(ret, TAG, "Cannot initialize NVS");
-
     // initialize TCP/IP stack
     ESP_RETURN_ON_ERROR(esp_netif_init(), TAG, "Cannot initialize TCP/IP stack");
-
-    // create default event loop
-    ESP_RETURN_ON_ERROR(esp_event_loop_create_default(), TAG, "Cannot create default event loop");
 
     // create default wifi sta (this call aborts if it fails)
     esp_netif_create_default_wifi_sta();
@@ -110,6 +98,7 @@ esp_err_t wifi_init()
         .sta = {
             .ssid = WIFI_SSID,
             .password = WIFI_PASSWORD,
+            .threshold.authmode = WIFI_AUTH_WPA_WPA2_PSK,
         },
     };
 

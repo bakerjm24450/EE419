@@ -42,59 +42,107 @@ menu "EE 419 Configuration"
         help
             Time zone setting using 
 
-    config PN532_SPI_MISO
-        int "PN532 SPI MISO Pin"
-        default 37
-        help
-            GPIO pin used for SPI MISO for PN532
-            
-    config PN532_SPI_MOSI
-        int "PN532 SPI MOSI Pin"
-        default 35
-        help
-            GPIO pin used for SPI MOSI for PN532
-            
-    config PN532_SPI_SCK
-        int "PN532 SPI SCK Pin"
-        default 36
-        help
-            GPIO pin used for SPI SCK for PN532
-            
-    config PN532_SPI_CS
-        int "PN532 SPI CS Pin"
-        default 40
-        help
-            GPIO pin used for SPI CS for PN532
-            
-    config PN532_SPI_IRQ
-        int "PN532 SPI IRQ Pin"
-        default 41
-        help
-            GPIO pin used for SPI IRQ for PN532
-
-    config PN532_SPI_CLOCK_RATE
-        int "PN532 SPI Clock Rate"
-        default 1000000
-        help
-            SPI clock rate in Hz for PN532
-
-    config PN532_SPI_HOST_NFC
-        int "PN532 SPI HOST Number"
-        range 0 2
-        default 2
-        help
-            Set the SPI host used to communicate with PN532
-
     config MQTT_BROKER
-        string "AWS endpoint"
-        default "Replace with AWS endpoint used as MQTT broker"
+        string "AWS Endpoint"
+        default "Replace with your AWS endpoint"
         help
-            Address of AWS endpoint used as MQTT broker
+            Name of MQTT broker
 
     config MQTT_PORT
-        int "Port used for MQTT communication"
+        int "MQTT port"
         default 443
         help
-            Port on broker used for MQTT communication
-                        
+            Port used for MQTT broker
+
+    config MQTT_QOS
+        int "MQTT Quality of Service"
+        range 0 1
+        default 1
+        help
+            QoS value for MQTT messages
+    
+    config MQTT_NAME
+        string "AWS Thing Name"
+        default "esp_1"
+        help
+            Replace with name of Thing, either esp_1 or esp_2
+
+    menu "PN532 Interface"
+        choice PN532_INTERFACE_TYPE
+            prompt "Choose interface type for PN532"
+
+            config PN532_I2C
+                bool "I2C interface"
+            
+            config PN532_SPI
+                bool "SPI interface"
+
+        endchoice
+
+        menu "PN532 I2C configuration"
+            visible if PN532_I2C
+
+            config PN532_I2C_SDA
+                int "PN532 I2C SDA Pin"
+                default 23
+                help
+                    GPIO pin used for I2C SDA for PN532
+
+            config PN532_I2C_SCL
+                int "PN532 I2C SCL Pin"
+                default 22
+                help
+                    GPIO pin used for I2C SCL for PN532
+
+            config PN532_I2C_PORT_NFC
+                int "PN532 I2C Port Number"
+                range 0 1
+                default 0
+                help
+                    Set the I2C port used to communicate with PN532
+        endmenu
+
+        menu "PN532 SPI configuration"
+            visible if PN532_SPI
+
+            config PN532_SPI_MISO
+                int "PN532 SPI MISO Pin"
+                help
+                    GPIO pin used for SPI MISO for PN532
+                    
+            config PN532_SPI_MOSI
+                int "PN532 SPI MOSI Pin"
+                help
+                    GPIO pin used for SPI MOSI for PN532
+                    
+            config PN532_SPI_SCK
+                int "PN532 SPI SCK Pin"
+                help
+                    GPIO pin used for SPI SCK for PN532
+                    
+            config PN532_SPI_CS
+                int "PN532 SPI CS Pin"
+                help
+                    GPIO pin used for SPI CS for PN532
+                    
+            config PN532_SPI_IRQ
+                int "PN532 SPI IRQ Pin"
+                help
+                    GPIO pin used for SPI IRQ for PN532
+
+            config PN532_SPI_CLOCK_RATE
+                int "PN532 SPI Clock Rate"
+                default 1000000
+                help
+                    SPI clock rate in Hz for PN532
+
+            config PN532_SPI_HOST_NFC
+                int "PN532 SPI HOST Number"
+                range 0 3
+                default 2
+                help
+                    Set the SPI host used to communicate with PN532
+        endmenu
+        
+    endmenu
 endmenu

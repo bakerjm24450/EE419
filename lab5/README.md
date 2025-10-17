@@ -3,11 +3,10 @@
 
 # EE 419 Lab 5
 
-In this lab, the ESP32 will communicate with an MQTT broker running on AWS, implementing
-the Candle prop for the VMI ECE Escape Room. On boot, the ESP32 will register with the AWS
-broker, who responds with an initial count value and an NFC tag to search for. The ESP32 
-will flash the count pattern on the RGB LED. If the desired tag is detected, the RGB LED 
-is set to green. If any other tag, or no tag at all, is detected, the LED is set to red.
+In this lab, the ESP32 will communicate with an MQTT broker running on AWS. Whenever 
+an NFC tag is detected by the ESP32, it will publish an MQTT message with the tag ID.
+The ESP32 will also receive MQTT messages that contain a color value, which is used
+to change the color of the RGB LED.
 
 ## Configure the Project
 
@@ -16,9 +15,10 @@ Open the project configuration menu (`idf.py menuconfig`).
 In the `EE 419 Configuration` menu:
 
 * Confirm the GPIO numbers used for the red, green, and blue LEDs
-* Confirm the GPIO numbers for the SPI communication with the PN532
+* Confirm the GPIO numbers for the I2C or SPI communication with the PN532
 * Set the WiFi SSID and password
-* Set the AWS enpoint
+* Set the AWS endpoint
+* Set the AWS Thing name
 
 ### Build and Flash
 

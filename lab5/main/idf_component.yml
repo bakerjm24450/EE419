@@ -1,0 +1,6 @@
+dependencies:
+  ## Required IDF version
+  idf: ">=5.0"
+
+  garag/esp-idf-pn532:
+    version: "^0.2.0"
